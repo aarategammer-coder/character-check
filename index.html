@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Character Counter</title>
+    <style>
+      body{
+  background-color:lightblue;
+  font-family:Arial, sans-seriff;
+  display:flex;
+  height:100vh;
+  justify-content:center;
+  align-items:center;
+}
+         button {
+      background-color: #334155;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background-color: #1e293b;
+    }
+.container{
+  background:#e1eef2;
+  padding:20px;
+  border-radius:10px;
+  width:400px;
+  text-align:center;
+  box-shadow:0 0 10px grey;
+}
+textarea{
+  width:90%;
+  height:120px;
+  font-size:1rem;
+  padding:10px;
+  resize:none;
+  margin-bottom:10px;
+}
+.counter{
+  color:green;
+  font-weight:bold;
+  font-size:1rem;
+}
+    </style>
+  </head>
+  <body>
+      <div class="container">
+        <h2>Live Character Counter</h2>
+        <textarea placeholder = "Type Here..." id="ta"></textarea>
+        <p>Total Charatcers : <span class="counter">0</span></p>
+        <button>Change Case</button>
+      </div>
+    <script>
+ const textarea = document.getElementById('ta');
+const counter = document.querySelector('.counter');
+const b = document.querySelector('button');
+
+let currentCase = 'none';
+
+function count() {
+  const length = textarea.value.length;
+  counter.style.color = length >= 50 ? 'red' : 'green';
+  counter.textContent = length;
+}
+
+textarea.addEventListener('input', count);
+
+b.addEventListener('click', () => {
+  const text = textarea.value;
+  if (!text) return;
+
+  if (currentCase === 'none' || currentCase === 'lower') {
+    textarea.value = text.toUpperCase();
+    currentCase = 'upper';
+  } else if (currentCase === 'upper') {
+    // Converts to Sentence case (first letter uppercase, rest lowercase)
+    textarea.value = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    currentCase = 'sentence';
+  } else {
+    textarea.value = text.toLowerCase();
+    currentCase = 'lower';
+  }
+});
+    </script>
+  </body>
+</html>
